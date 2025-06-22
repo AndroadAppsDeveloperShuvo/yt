@@ -5,52 +5,96 @@
   <title>YouTube Thumbnail Downloader</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      text-align: center;
+      background: #f0f2f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       padding: 20px;
     }
-    input {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
+    .container {
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
+    .container h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .container input {
+      width: 90%;
+      max-width: 400px;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    .container input:focus {
+      border-color: #ff0000;
+      outline: none;
+    }
+    .container button {
+      background: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 15px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    img {
-      margin-top: 20px;
+    .container button:hover {
+      background: #e60000;
+    }
+    #result {
+      margin-top: 30px;
+    }
+    #result img {
       max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    a {
-      display: block;
-      margin-top: 10px;
-      text-decoration: none;
-      color: white;
-      background: #FF0000;
+    #result a {
+      display: inline-block;
+      margin-top: 15px;
+      background: #28a745;
+      color: #fff;
       padding: 10px 20px;
       border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    #result a:hover {
+      background: #218838;
     }
   </style>
 </head>
 <body>
-  <h1>YouTube Thumbnail Downloader</h1>
-  <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
-  <br />
-  <button onclick="getThumbnail()">Get Thumbnail</button>
-  <div id="result"></div>
+  <div class="container">
+    <h1>YouTube Thumbnail Downloader</h1>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL">
+    <br/>
+    <button onclick="getThumbnail()">Get Thumbnail</button>
+    <div id="result"></div>
+  </div>
 
   <script>
     function getThumbnail() {
-      const url = document.getElementById('videoUrl').value;
+      const url = document.getElementById('videoUrl').value.trim();
       const videoId = extractVideoID(url);
       if (videoId) {
         const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
         document.getElementById('result').innerHTML = `
           <img src="${thumbnailUrl}" alt="Thumbnail" />
+          <br/>
           <a href="${thumbnailUrl}" download="thumbnail.jpg">Download Thumbnail</a>
         `;
       } else {
