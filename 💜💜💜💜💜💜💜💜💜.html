@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Thumbnail Downloader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    img {
+      margin-top: 20px;
+      max-width: 100%;
+    }
+    a {
+      display: block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: white;
+      background: #FF0000;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouTube Thumbnail Downloader</h1>
+  <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
+  <br />
+  <button onclick="getThumbnail()">Get Thumbnail</button>
+  <div id="result"></div>
+
+  <script>
+    function getThumbnail() {
+      const url = document.getElementById('videoUrl').value;
+      const videoId = extractVideoID(url);
+      if (videoId) {
+        const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        document.getElementById('result').innerHTML = `
+          <img src="${thumbnailUrl}" alt="Thumbnail" />
+          <a href="${thumbnailUrl}" download="thumbnail.jpg">Download Thumbnail</a>
+        `;
+      } else {
+        alert('Please enter a valid YouTube URL.');
+      }
+    }
+
+    function extractVideoID(url) {
+      const regex = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&#]+)/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+  </script>
+</body>
+</html>
